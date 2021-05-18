@@ -1,11 +1,15 @@
-let number;
-number = 'ten';
-let counter = 1;
-
-if (number === 'seven') {
-  counter += 1;
-} else {
-  counter -= 1;
+function solve(s0, s1) {
+  for (let i in s1) {
+      s1[i] = '';
+      debugger;
+      if (s1 === s0) {
+          return true;
+      }
+  }
+  return false;
 }
 
-console.log(counter);
+let str = 'hello';
+let str1 = 'hello';
+
+solve(str, str1);

@@ -45,3 +45,76 @@ myFunc();
 ```
 
 On line 39, a global vairable `hello` is declared and initialized to the string literal `'Hello World'`. On line 40 the function `myFunc` is declared in the global scope using a function declaration and it defines no parameter. When the `myFunc` function is invoked on line 44, the code inside the body of `myFunc`, on line 41 will run. In the function body, the global variable `hello` is passed to the  `console.log` method as argument. This will output the value assigned to the global variable `hello` and `myFunc` will implicitly return `undefined`. By producing an output to the console `myFunc` demonstrates how functions can produce a side effects. Also it demonstrates how global variables are accessible within a nested scope.
+
+3. What will this code output, what will it return, what concepts does it demonstrate?
+
+```js
+let name = 'Jack'
+
+let func = name => {
+  name = 'Arlo'
+  console.log(name);
+}
+
+func(name);
+console.log(name);
+```
+
+This code snippet will output `Arlo` and `Jack`. The `func` function will have an implicit return value of `undefined` because no return value was explicitly defined.
+
+On line 1, a global variable `name` is declared and initialized to a string literal `'Jack'`. On line 3, a function `func` defines one parameter `name` and inside the function body on line 4, this parameter is assigned the string literal `'Arlo'`. 
+
+On line 8, the `func` function is invoked and to it the global variable `name` is passed as argument.
+
+However, `func`'s `name` parameter is a variable local to the `func` function, and it shares the same identifier as the global variable. Therefore it shadows the global `name` variable and does not mutate it. Therefore on line 4, when `name` is passed to the `console.log` method as argument, it is the local variable `name`, which contains the string literal `'Arlo'`, that is being passed. 
+
+When the execution reaches line 4, it will output to the console `Arlo`. The execution will resume after line 6. The `console.log` method is called in the global scope, and this time the global variable `name` is passed as argument. Since `func` did not mutate this variable, line 7 will output to the console `Jack`.
+
+This code snippet demonstrates variable shadowing, as well as global and local scope. In particular it shows how function parameters are themselves variables, and in the case that a function parameter has the same name as a global variable, that local variable will shadow the global variable.
+
+Future problems:
+
+4. 
+```js
+let name = 'Jack';
+
+let changeName = name => {
+  name = 'Jim';
+};
+
+changeName(name);
+console.log(name);
+```
+
+5. 
+```js
+let jack = 'Jack';
+let name;
+
+let changeName = name => {
+  name = 'Jim';
+};
+
+changeName(jack);
+console.log(jack);
+```
+
+6. 
+```js
+
+```
+
+7. 
+```js
+
+```
+
+8. 
+```js
+
+```
+
+9. 
+```js
+
+```
