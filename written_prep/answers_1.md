@@ -31,3 +31,17 @@ The expression in the `if` statement's condition returns false because the globa
 Finally on line 14 the `console.log()` method is invoked and the value referenced by the global variable `counter` is passed as argument. This will output `0` and because the return value of `console.log()` is `undefined`, `undefined` will be the return value.
 
 This code snippet demonstrates variable assignment and reassignment as well as how global variables are accessible within block scope.
+
+2. Describe what the `myFunc()` function does
+
+```js
+
+let hello = "Hello, world!";
+function myFunc() {
+  console.log(hello);
+}
+
+myFunc();
+```
+
+On line 39, a global vairable `hello` is declared and initialized to the string literal `'Hello World'`. On line 40 the function `myFunc` is declared in the global scope using a function declaration and it defines no parameter. When the `myFunc` function is invoked on line 44, the code inside the body of `myFunc`, on line 41 will run. In the function body, the global variable `hello` is passed to the  `console.log` method as argument. This will output the value assigned to the global variable `hello` and `myFunc` will implicitly return `undefined`. By producing an output to the console `myFunc` demonstrates how functions can produce a side effects. Also it demonstrates how global variables are accessible within a nested scope.
