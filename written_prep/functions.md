@@ -160,3 +160,20 @@ console.log(arr);
 // [ 'jack', 'arlo', 'daphne' ]
 ```
 
+We know that the `map` method returns a new array so this doesn't mutate the caller.
+
+Return Values:
+
+Here's an interesting code snippet:
+
+```js
+function foo(s) {
+  return { qux: s };
+}
+
+console.log(foo("abc"));
+```
+Would this be considered pass by reference? 
+
+The same concepts that apply to function arguments when we discuss pass by value and pass by reference also apply to a function's return value.
+

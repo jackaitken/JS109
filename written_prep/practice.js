@@ -1,15 +1,15 @@
-function solve(s0, s1) {
-  for (let i in s1) {
-      s1[i] = '';
-      debugger;
-      if (s1 === s0) {
-          return true;
-      }
-  }
-  return false;
+function messWithVars(one, two, three) {
+  one.splice(0, 1, "two");
+  two.splice(0, 1, "three");
+  three.splice(0, 1, "one");
 }
 
-let str = 'hello';
-let str1 = 'hello';
+let one = ["one"];
+let two = ["two"];
+let three = ["three"];
 
-solve(str, str1);
+messWithVars(one, two, three);
+
+console.log(`one is: ${one}`);
+console.log(`two is: ${two}`);
+console.log(`three is: ${three}`);
