@@ -101,8 +101,27 @@ console.log(jack);
 
 6. 
 ```js
+let name = 'Jack'
 
+let func = name => {
+  name = 'Bill'
+  console.log(name);
+};
+
+func(name);
+
+console.log(name);
 ```
+This code will output `Bill` and then `Jack` and it will have a return value of `undefined`.
+
+On line 104 a global variable `name` is delcared and initialized to the string literal `'Jack'`. On line line 106, a function `func` is defined and it specifies one parameter `name`. This parameter is local to the function. On line 111 the function `func` is invoked and to it the global variable `name` is passed as argument to `func`. The value stored inside `name` is passed by value to `func`'s parameter `name`.
+
+On line 107 the variable `name`, which is local to `func` is reassigned to the string literal `'Bill'`. However, because the local variable `name` has the same identifier as the global variable `name`, the local variable will shadow the global variable. Therefore this reassignment occurs locally and does not affect the global variable. On line 108 the `console.log` method is invoked and the value stored inside the local variable `name` is passed as argument. Since the local variable has been reassigned it will output to the console `Bill`. `console.log` always has a return value of `undefined` so `func`'s return value is `undefined`
+
+Once the execution continues on line 113, the `console.log` method is invoked again and this time the value stored inside the global variable `name` is passed as argument. This will output `Jack` to the console. `console.log` will return `undefined`.
+
+This demonstrates global variable scope as well as function scope and variable shadowing. In particular this demonstrates how global variables are accessible within nested scope and how local variables of the same identifier as global variables will shadow those global variables.
+
 
 7. 
 ```js
