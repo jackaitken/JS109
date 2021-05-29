@@ -125,15 +125,104 @@ This demonstrates global variable scope as well as function scope and variable s
 
 7. 
 ```js
+function fix(value) {
+  value.toUpperCase(); 
+  value.concat('!'); 
+  return value; 
+}
 
+const s = 'hello'; 
+const t = fix(s); 
+
+// What values do `s` and `t` have? why? 
 ```
+
+The global variables `s` and `t` have the ending values of the `hello` and `world` respectively.
+
+On line 134 a variable `s` is declared in the global scope and initialized to the string literal `'hello'`. On line 135, a variable `t` is declared in the global scope and initialized to the return value of the function invocation `fix(s)`. The function `fix` is invoked and to it the string stored in the global variable `s` is passed as argument. Whatever this function returns will be assigned to the global variable `t`.
+
+After the function invocation the execution moves to the `fix` function. On line 128, the function `fix` defines one parameter: `value`. This is a variable local to the function `fix`. On line 129 and 130, two string methods are called on the local variable `value`, but since these are non-mutating method calls, that do not mutate the value stored in the local variable `value`. When `value` is retunred on line 131, `value` contains the value `'hello'`.
+
+Nothing is output to the console, and the return value of `fix` is `hello`.
+
+This demonstrates pass by value, and the immutability of primitive data types like strings.
 
 8. 
 ```js
+function fix(value) {
+  value = value.toUpperCase(); 
+  return value.concat('!'); 
+}
 
+let s = 'hello'; 
+let t = fix(s); 
+
+// What values do `s` and `t` have? why? 
 ```
+
+The values of the global variables `s` and `t` are the strings `hello` and `HELLO!` respectively. 
+
+On line 157 the global variable `s` is declared and initialized to the string literal `'hello'`. 
+
+On line 158, the global variable `t` is declared and assigned to the return value of the function invovation `fix(s)`. This means that whatever this `fix` function returns given that the argument is the string stored in the global variable `s`, will be assigned to the global variable `t`.
+
+The execution moves to the `fix` function, which defines one parameter: `value`. This parameter stores the value that was passed into the function as argument. On line 153, inside the function body, `value` is reassigned. It is reassigned to the result of calling the string method `toUpperCase` on the value stored in the local variable `value`. Since strings are immutable, this returns a new string `'HELLO'`. This is the new value assigned to `value`.
+
+On line 154 the string method `concat` is called on the variable `value` and the strings `'HELLO'` and `'!'` are concatenated and a new string is returned.
+
+This return value is assigned to the global variable `t`, which is why the ending values of `s` and `t` are `hello` and `HELLO!`.
+
+This demonstrates pass by value and the immutabilty of primitive data types likes strings.
+
 
 9. 
 ```js
+function fix(value) {
+	value += 'xyz'; 
+  value = value.toUpperCase(); 
+  return value.concat('!'); 
+}
+
+let s = 'hello'; 
+let t = fix(s); 
+// What values do `s` and `t` have? why? 
+```
+The global variables `s` and `t` contain the values `hello` and `HELLOXYZ!` respectively.
+
+On line 186 a variable `s` is declared in the global scope and initialized to a string literal `'hello'`.
+
+On line 187, a variable `t` is declared and to it the return value of the function invocation `fix(s)` will be assigned as its value. 
+
+This function invocation moves the execution to the `fix` function, which defines a parameter `value`, which is a variable local to the function. This parameter stores the value that was passed into the function as argument: `hello`. 
+
+On line 181, using the addition assignment operator `+=` the local variable `value` is reassigned to a new string that inclues the original string `hello` and a new string `xyz`.
+
+On line 182, `value` is reassigned again to a new string, which is the result of calling `value.toUpperCase()`. This assigns the string `HELLOXYZ` to the `value` variable.
+
+Finally on line 183, `value` is returned after the string method `concat` is called on `value`. The string stored in `value` and an `'!'` are concatenated to return a new string that is now assigned to the global variable `t`.
+
+This code demonstrates pass by value and the immutability of strings. 
+
+10. 
+
+```js
+function fix(value) {
+  value[1] = 'x'; 
+  return value;  
+}
+
+let s = 'abc'; 
+let t = fix(s); 
+
+// What values do `s` and `t` have? why? 
 
 ```
+On line 214, the global variable `s` is declared and initialized to the string literal `'abc'`. 
+
+On line 215, the global variable `t` is declared and to it the return value of the function invocation `fix(s)` is assigned as it's value. This means that the global variable `t` will contain whatever `fix`'s return value is.
+
+Because this is a function invocation, the execution moves to the `fix` function, which defines a parameter, `value`. `value` contains the value, which was passed by value as argument to the `fix` function: `abc`.
+
+On line 210 in the function body, using square bracket notation, the character at index 1, in the string referred to by the local variable `value` is reassigned to the character `x`. However the local variable `value` is never reassigned, so when `value` is returned on line 211, the string `'abc'` is returned and assigned to the global variable `t`.
+
+This code demonstrates pass by value as well as the immutablity of strings. 
