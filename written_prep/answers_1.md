@@ -206,23 +206,126 @@ This code demonstrates pass by value and the immutability of strings.
 10. 
 
 ```js
-function fix(value) {
-  value[1] = 'x'; 
-  return value;  
-}
-
-let s = 'abc'; 
-let t = fix(s); 
+function fix(value) {   // line 1
+  value[1] = 'x';       // line 2
+  return value;         // line 3
+}                       // line 4
+                        // line 5
+let s = 'abc';          // line 6
+let t = fix(s);         // line 7
 
 // What values do `s` and `t` have? why? 
 
 ```
-On line 214, the global variable `s` is declared and initialized to the string literal `'abc'`. 
+The final values of the global variables `s` and `t` will be `abc` and `abc`.
 
-On line 215, the global variable `t` is declared and to it the return value of the function invocation `fix(s)` is assigned as it's value. This means that the global variable `t` will contain whatever `fix`'s return value is.
+On line 6, the global variable `s` is declared and initialized to the string literal `'abc'`. 
 
-Because this is a function invocation, the execution moves to the `fix` function, which defines a parameter, `value`. `value` contains the value, which was passed by value as argument to the `fix` function: `abc`.
+On line 7, the global variable `t` is declared and to it the return value of the function invocation `fix(s)` is assigned as it's value. This means that the global variable `t` will contain whatever `fix`'s return value is after passing in the string stored in the global variable `s`. JavaScript will pass the string by value.
 
-On line 210 in the function body, using square bracket notation, the character at index 1, in the string referred to by the local variable `value` is reassigned to the character `x`. However the local variable `value` is never reassigned, so when `value` is returned on line 211, the string `'abc'` is returned and assigned to the global variable `t`.
+Because line 7 includes a function invocation, the execution moves to the `fix` function, which defines a parameter, `value`. `value` contains the value, which was passed as argument to the `fix` function: `abc`.
+
+On line 2, inside the function body, the element at index 1 in the string stored in the variable `value` is referenced using the square bracket index reference. This element is reassigned to the string literal `'x'`. However, strings are immutable, so the string stored in the local variable `value` is not changed. Therefore on line 3, when the variable `value` is explicitly returned, the string `abc` is returned and assigned to the global variable `t`.
 
 This code demonstrates pass by value as well as the immutablity of strings. 
+
+
+11. 
+```js
+let greeting = 'Hello'; // Line 1
+
+while (true) {          // Line 2
+  greeting = 'Hi';
+  break;
+}
+
+console.log(greeting);  // Line 7
+```
+This code snippet will output `Hi` to the console and it will return `undefined`.
+
+On line 1 a global variable `greeting` is declared and initialized to the string literal `'Hello'`. 
+
+From lines 2 - 5 a `while` loop is defined. The condition `true` signifies that this loop will run infinitely unless it encounters some kind of terminating event.
+
+On line 3, the global variable `greeting` is reassigned to the string literal `Hi`, then on line 4, the `break` statement terminates the loop.
+
+Finally, on line 7, the `console.log` method is invoked and the value stored inside of the global variable `greeting` is passed as argument. Since `greeting` was reassigned to the string literal `'Hi'`, this will output `Hi` to the console and  `console.log` will return `undefined`. 
+
+This code demonstrates global variable scope and block scope. In particular it shows how global variables are accessible from inside nested block scope. It also demonstrates variable reassignment.
+
+12. 
+
+```js
+function anyNegatives(arr) {
+  arr.forEach(num => {
+    if (num < 0) return true;
+  });
+}
+
+let numbers = [1, 2, 3, -5, 4];
+
+if (anyNegatives(numbers)) {
+  console.log("The array contains at least one negative number!");
+} else {
+  console.log("The array contains no negatives!");
+}
+
+//What is output to console, and why? What concepts are illustrated?
+```
+This code snippet will output `The array contains no negatives!` to the console. The function `anyNegatives` will return undefined.
+
+On line 1 a function `anyNegatives` is declared and it defines one parameter: `arr`. `anyNegatives` attempts to use to the array method `forEach` to check if any number is less than 0. It does this with a callback function that defines a parameter `num`. Through each iteration of the callback, each number in the array will be passed into the callback as the parameter `num`. However, `forEach` always returns `undefined`. Therefore `anyNegatives` will also always return `undefined`.
+
+On line 7, a variable `numbers` is declared in the global scope and initialized to a reference which points to the array literal: `[1, 2, 3, -5, 4]`. From lines 9 - 13 an `if...else` statement is defined and the `if` condition checks the return value of the function invocation `anyNegatives(numbers)`. It will check `anyNegatives`'s return value and either the code in the `if` block or the `else` block depending on the return values's truthiness. 
+
+Because `undefined` evaluates to `false`, the code on line 12 will be executed and `The array contains no negatives!` will be output using the `console.log` method.
+
+
+13. 
+
+```js
+function capitalizeFirstLetter(word) {
+  word = word[0].toUpperCase() + word.slice(1);
+  return word;
+}
+
+let word = "javascript";
+capitalizeFirstLetter(word); // returns "Javascript"
+word; // returns "javascript"
+```
+
+This code will not have any output, but the return value of the global variable `word` will be: `javascript` and the return value of the `capitalizeFirstLetter` function will be `Javascript`.
+
+On line 1 a function `capitalizeFirstLetter` is declared and it defines one parameter `word`. This local variable shadows the global variable of the same name. Inside the function body, the local variable `word` is reassigned. The string method `toUpperCase` capitalizes the letter at index 0 in the string, then it is concatenated with the rest of the string after the string method `slice` is called.
+
+On line 6 a global variable `word` is declared and initialized to the string literal `'javascript'`. 
+
+On line 7 the `capitalizeFirstLetter` is invoked and the global variable `word` is passed as argument. However since the variable `word`, which is local to the `capitalizeFirstLetter` function shadows the global variable `word`, the global variable is not reassigned and still retains it's original value: `javascript`.
+
+This code snippet demonstrates variable shadowing and how block scoped variables, with the same name as a global variable will shadow that global variable.
+
+14. 
+
+```js
+let name = "nina";
+
+function outer() {
+  let name = "jill";
+  function inner() {
+    return name[0].toUpperCase() + name.slice(1);
+  }
+  return inner();
+}
+
+outer();
+name;
+```
+This code snippet will not output anything to the console, but the function `outer` will return `Jill` and the global variable `name` has the return value of `nina`.
+
+On line 1 a global variable `nina` is declared and initialized to the string literal `'nina'`. On line 3 a function `outer` is declared, which takes no arguments. Inside the function body on line 4 a local variable `name` is declared and initalized to the string literal `'jill'`. This is local variable shadows the global variable of the same name.
+
+On line 5, a function `inner` is declared inside of the `outer` function. This takes no arguments as well, but when it it invoked on line 8, `inner` will return the local `name` variable in title form, so that the character at index 0, will be upper cased and the rest of the name is concatenated. This will return `Jill`. This is a new string as strings are immuatable. The local variable `name` still contains the original value `jill`.
+
+The function `outer` uses the return value of `inner` as its own return value. `Jill` is returned.
+
+This demonstrates variable shadowing and the immutability of strings.
