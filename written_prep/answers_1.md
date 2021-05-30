@@ -329,3 +329,46 @@ On line 5, a function `inner` is declared inside of the `outer` function. This t
 The function `outer` uses the return value of `inner` as its own return value. `Jill` is returned.
 
 This demonstrates variable shadowing and the immutability of strings.
+
+
+15. 
+```js
+const hottestTemps = [
+  {continent : "Africa", country: "Tunisia", temp: 55},
+  {continent : "Asia", country: "Iran", temp : 54},
+  {continent : "North America", country: "USA", temp : 56.7},
+  {continent : "South America", country: "Argentina", temp: 48.9},
+  {continent : "Europe", country: "Greece", temp : 49},
+  {continent : "Oceania", country: "Australia", temp : 50.7}
+];
+
+function toFahrenheit(tempsArr) {
+  let newTempsArr = tempsArr.slice();
+  newTempsArr.forEach(obj => {
+    obj.temp = (obj.temp * 9 / 5) + 32;
+  });
+}
+
+const hottestTempsInF = toFahrenheit(hottestTemps);
+console.log(hottestTempsInF);
+console.log(hottestTemps);
+```
+The return value of the function `toFarenheit` is `undefined`, therefore the call to `console.log(hottestTempsInF)` will return `undefined`. The `console.log(hottestTemps)` call on line 19 will also return `undefined` but it will also output the `hottestTemps` object with the temperatures in farenheit instead of celsius.
+
+On line 1 a global variable `hottestTemps` is declared and initialized to a pointer, which references an array literal, that contains nested objects as the array elements.
+
+The function `toFarenheit` defines a parameter `tempsArr`. When this function is invoked on line 17, the execution moves to the `toFarenheit` function. On line 11, the array method `slice` creates a copy of the `hottestTemps` outer array, but the nested objects are not copied, thus they still reference the same objects. 
+
+The array method `forEach` is called on the copied array, and a callback function, with a parameter `obj` will iterate over each object. Since `obj` will reference the same objects, objects within the `hottestTemps` array will be mutated. 
+
+This demonstrates how global variables are accessible within function, but it also demonstrates how methods like `slice` do not make deep copies.
+
+
+16. 
+```js
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; 
+
+numbers.filter(num => num % 2 === 0)
+
+console.log(numbers); 
+```

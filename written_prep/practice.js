@@ -1,14 +1,5 @@
-let name = "nina";
+let arr = [1, 2, 3, 4];
 
-function outer() {
-  let name = "jill";
-  function inner() {
-    return name[0].toUpperCase() + name.slice(1);
-  }
-  console.log(name);
-  return inner();
-}
+let newArr = arr.filter(num => num % 2 === 0);
 
-outer();
-name;
-
+console.log(newArr);
