@@ -18,10 +18,19 @@ let newArr = arr.filter(num => num % 2 === 0);
 newArr;
 // [2, 4]
 ```
-On line 1, a global variable `arr` is declared and initialized to a reference, which points to an array literal: `[1, 2, 3, 4]`.
+On line 1 a global variable `arr` is declared and initialized to a reference, which points to the array literal: `[1, 2, 3, 4]`.
 
-On line 3, the array method `filter` is called on the global variable `arr`. `filter` performs a selection on an array based on a selection criterion. It uses the return value of the callback function on each iteration to determine its own return value. If the return value of the callback is truthy then that element will be selected.
+On line 3, the array method `filter` is called on the array referenced by the variable `arr`. `filter` is a selection method that uses a selection criteron to build and return a new array with the selected elements.
+
+A callback function with one parameter: `num` is passed as argument to the `filter` method. On each iteration through the callback function the current array element will be passed into the callback as the parameter `num`. 
+
+This callback uses the remainder operator `%` to check if the current array element is even. If the return value of a given iteration through the callback is truthy, then this element will be selected and added to the new array.
+
+Once this new array is returned by `filter` the global variable `newArr` will contain a reference, which points to this new array. The array referenced by `newArr` will contain the even elements from the original array: `[2, 4]`. Nothing is output to the console. The global variable `newArr` will have the return value `[2, 4]`.
+
+The code snippet demonstrates the array method `filter` and how a selection method works.
 
 
-
+Defining callbacks:
+  a callback function with one parameter: `insert` is passed as argument to the array method `insert`.
 
