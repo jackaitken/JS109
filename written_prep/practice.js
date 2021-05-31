@@ -1,5 +1,5 @@
-let arr = [1, 2, 3, 4];
+function solution(str, ending){
+  return str.slice(-ending.length);
+}
 
-let newArr = arr.filter(num => num % 2 === 0);
-
-console.log(newArr);
+console.log(solution('abc', ''));

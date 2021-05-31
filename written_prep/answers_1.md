@@ -372,3 +372,12 @@ numbers.filter(num => num % 2 === 0)
 
 console.log(numbers); 
 ```
+
+On line 1, the global variable `numbers` is declared and initialized to a reference, which points to an array literal: `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+
+On line 3, the array method `filter` is called, which will use a callback function to select items from the `numbers` array and return a new array, with those selected numbers.
+
+the callback function defines a parameter `num`, and on each iteration through the callback function, the current element in the `numbers` array will be passed into the callback as `num`. It will then check using the remainder operator `%`, if the current number is even. It then implicitly returns either `true` or `false` on each iteration. `filter` makes it's selection based on the elements that return `true`.
+
+However, this new array is never assigned to a variable, so this array is never saved. The call to the method `console.log` on line 5, passes the array referenced by the global variable `numbers` and it will output to the console: `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`. `console.log` always returns `undefined` so this will also return `undefined`.
+
