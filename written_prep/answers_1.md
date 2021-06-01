@@ -381,3 +381,150 @@ the callback function defines a parameter `num`, and on each iteration through t
 
 However, this new array is never assigned to a variable, so this array is never saved. The call to the method `console.log` on line 5, passes the array referenced by the global variable `numbers` and it will output to the console: `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`. `console.log` always returns `undefined` so this will also return `undefined`.
 
+17. 
+```js
+let a = 4; // line 1
+
+do { // line 3 
+	a = 5; 
+  let b = 3;  // line 5
+  break;
+} while(true) // line 7
+
+console.log(a) // line 9
+console.log(b)
+```
+This code snippet will output to the console `5`, but when the execution reaches line 10, a `ReferenceError` will be thrown because the variable `b` is block scoped and not reachable by the `console.log` statement.
+
+On line 1 a global variable `a` is declared and initialzied to the number literal `4`. 
+
+Lines 3 - 7 define a `do...while` loop that will run infinitely unless met with some terminating event. On line 4, the global variable `a` is reassigned to the number literal `5`, and on line 5 a variable `b` that is block scoped to the `do...while` loop is declared and initialized to the number literal `3`. Line 6 contains a `break` statement, which exits the `do...while` loop. Execution resumes after line 7.
+
+On line 9 the `console.log` method is called passing in the value associated with the global variable `a` as argument. This logs to the console: `5` and `console.log` returns `undefined`. Since the variable `b` is block scoped, and not visible in the global scope, the code on line 10 will throw an error.
+
+This code snippet demonstrates how global variables are accessible within block scope, and also how variables declared within block scope are not accessible in the global scope.
+
+18. 
+```js
+let a = 4; // 1 
+let b = 2; // 2 
+
+while (true) { // 4
+	let c = 3; 
+	let a = c;  // 6
+  break; 
+}              // 8
+
+console.log(a) // 10
+console.log(b) // 11
+```
+
+On line 1 a global variable `a` is declared and initialized to the number literal `4`. On line 2 a global variable `b` is declared and initialized to the number literal `2`.
+
+Lines 4 - 8 define a `while` loop that will run infinitely unless met with some terminating event. On line 5 a variable `c` that is block scoped, is declared initialized to the number literal `3`. On line 6 a variable `a` that is also block scoped, is initialized to the value stored in the variable `c`: `3`. This local variable `a` shadows the global variable `a`. Any changes on one variable will not affect the other because they are completely separate variables. On line 7 the `break` statement terminates the `while` loop and execution resumes after line 8.
+
+On line 10 the `console.log` method is invoked and to it the value stored in the global variable `a` is passed as argument. `4` is output to the console and `console.log` returns `undefined`.
+
+On line 11 the `console.log` method is invoked and to it the value stored in the global variable `b` is passed as argument. `2` is output to the console and `console.log` returns `undefined`.
+
+The variables declared on lines 5 and 6 are block scoped to the `while` loop, thus they are inaccessible to the global scope. Although a variable `a` is declared, this is a completely separate variable that has not effect on the global variable `a`.
+
+This demonstrates global scope and block scope.
+
+19. 
+```js
+function example(str) { // line 1
+	let i = 3;            // line 2
+  while (true) {        // line 3
+	  console.log(str);   // line 4
+    i -= 1;             // line 5
+    if (i == 0) break;  // line 6
+  }                     // line 7
+}                       // line 8
+example('hello')
+```
+On line 1, a function `example` is declared and one parameter: `str` is defined. On line 9 the function `example` is invoked and to it the string literal `'hello'` is passed as argument. This will be passed to the function as the paramter `str`. The execution moves to line 2.
+
+On line 2, a variable `i` is declared in function scope, and lines 3 - 7 define a `while` loop that will run infinitely unless met with some terminating condition.
+
+On line 4 the `console.log` method is called and the value stored in the paramter `str` is passed as argument. `hello` is output to the console.
+
+`hello` will be output 2 more times as the variable `i` is decremented using the subtraction assignment operator `-=` on line 5. Each time the `while` loop iterates through, `i` will be decremented by `1` and assigned a new value that is 1 less than its previous value. It continues to iterate because the `if` condition on line `6` checks if `i === 0`. While `i` is not equal to `0` it will continue looping. Each time the execution reaches line 4, the value stored in the variable `str` is output to the console.
+
+Finally after 3 iterations, the variable `i` is equal to `0` and the `while` loop is terminated using a  `break` statement.
+
+This demonstrates how variables declared in functions can be reassigned within block scope.
+20. 
+
+```js
+function greetings(str) { // line 1
+	console.log(str)
+  console.log("Goodbye"); // line 3
+} // line 4
+
+let word = "Hello"; // line 6
+
+console.log(greetings(word)); // line 8
+```
+On line 1 a function `greetings` is declared and it defines one parameter: `str`. This is a variable local to the `greetings` function.
+
+On line 6, a global variable `word` is declared and initialized to the string literal `'Hello'`. 
+
+On line 8, the greetings function is invoked and the return value of the function is passed to the `console.log` method as argument. Whatever the return value of `greetings` is will be output to the console.
+
+The `greetings` function is invoked and the value stored in the variable `word` is passed as argument. this value is passed into the function as the parameter `str`. The execution moves to the `greetings` function. On line 2, the `console.log` method is invoked and the value stored in the variable `str` is passed as argument. `Hello` is output to the console and the `console.log` method will have a return value of `undefined`. On line 3, the `console.log` method is invoked again and this time passed the string literal `'Goodbye'` as argument. `Goodbye` is output to the console.
+
+Because the `greetings` function has no explicit return value the return value of the function is `undefined`. Therefore the `console.log` invocation on line 8, will output to the console: `undefined`.
+
+This demonstrates how functions with no explicit return value will implicitly have the return value of `undefined`.
+
+
+21. 
+```js
+let arr = [1, 2, 3, 4]; // line 1
+
+let counter = 0; // line 3
+let sum = 0; 
+
+while (true) { // line 5
+  sum += arr[counter]; 
+  counter += 1; // line 7
+  if (counter === arr.length) break;
+} // line 9
+
+console.log(`Your total is ${sum}`); // line 11
+```
+On line 1 a global variable `arr` is declared and initialized to a reference which point to an array literal.
+
+On line 3 a global variable `counter` is declared and initialized to the number `0`. On line 4 another global variable `sum` is declared and initialized to the number `0`.
+
+Lines 5 - 10 define a while loop that will run infinitely unless met with some terminating condition. On line 7, the global variable `sum` is incremented by the value that is stored in the array referenced by the global variable `arr` at the `counter` index. On the first iteration `counter` is equal to `0`, so the element at index `0` in the array is `1`. Therefore `sum` is incremented by `1`. `sum` will continue to be incremented as the loop iterates.
+
+On line 8 the global variable `counter` is incremented by 1. On line 9 an `if` statement checks whether the value stored in the variable `counter` is equal to the length of the array referenced by the global variable `arr`. Only when that condition returns `true` will the `while` loop terminate.
+
+Once the loop terminates, `sum` contains the value `10` and `counter` contains the value `10`.
+
+The `console.log` method is called on line 12 and a template string is passed as argument. The current value of the variable `sum` will be inserted and `Your total is 10`, will be output to the console. `console.log` will return `undefined`.
+
+
+22.
+```js
+let array = [1, 2, 3];
+
+function shadows(array) {
+    array.push(4, 5);
+    return array;
+}
+
+console.log(array);
+```
+This code snippet will output `[1, 2, 3]` and the `console.log` method will return `undefined`.
+
+On line 1 a global variable `array` is declared and initialized to a reference which points to the array literal: `[1, 2, 3]`.
+
+On line 3 a function `shadows` is defined and it specifies one parameter: `array`. This function is never invoked.
+
+On line 8 the `console.log` method is called and to it the array referenced by the global variable `array` is passed as argument. `[1, 2, 3]` is output to the console and `console.log` returns `undefined`.
+
+Had the `shadows` function been invoked and the the array referenced by the global variable `array` was passed as argument, the array would have been passed by reference. The local variable `array` in the `shadows` function references the same array referenced by the global variable `array`. Therefore pushing the numbers `4` and `5` to the array, would have mutated the array referenced by the global variable `array`. This of course did not happen however since `shadows` was never invoked.
+
