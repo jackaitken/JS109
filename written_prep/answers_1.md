@@ -528,3 +528,135 @@ On line 8 the `console.log` method is called and to it the array referenced by t
 
 Had the `shadows` function been invoked and the the array referenced by the global variable `array` was passed as argument, the array would have been passed by reference. The local variable `array` in the `shadows` function references the same array referenced by the global variable `array`. Therefore pushing the numbers `4` and `5` to the array, would have mutated the array referenced by the global variable `array`. This of course did not happen however since `shadows` was never invoked.
 
+
+23. 
+
+```js
+let a = "Hello";
+
+if (a) {
+  console.log("Hello is truthy");
+} else {
+  console.log("Hello is falsy");
+}
+```
+This code snippet will output: `Hello is truthy`. `console.log` will return `undefined`.
+
+On line 1 a global variable `a` is declared and initialized to the string literal `"Hello"`.
+
+Lines 3 - 7 contain an `if...else` statement. The expression in the `if` condition, checks whether the value stored in the global variable `a` is a truthy value, or in other words if the value evaluates to `true`. Because the string `"Hello"` evaluates to `true`, the code on line 4 is executed. The `console.log` method is invoked and the string `"Hello is truthy"` is passed as argument. `Hello is truthy` is output to the console and `console.log` returns `undefined`.
+
+This code snippet demonstrates truthy vs. falsy values in JavaScript.
+
+24. 
+
+```js
+function test() {
+	console.log("Written assessment"); 
+}
+
+const exam = test()
+
+if (exam) {
+	console.log("written assessment"); 
+} else {
+ console.log("interview"); 
+}
+```
+
+On line 1 a function `test` is defined in the global scope, which specifies no parameters. On line 5, a constant variable `exam` is declared in the global scope. The value stored in the variable `exam` will be the return value of the `test` function. Because `test` was invoked, the execution moves to the `test` function.
+
+On line 2, inside the function body the `console.log` method is invoked and the string `"Written assessment"` is passed as argument. `Written assessment` is output to the console. `console.log` returns `undefined`. Since the `test` function has no explicit return value, the return value of `test` is `undefined`. Therefore the global variable `exam` is initialized to `undefined`.
+
+Lines 7 - 11 define an `if...else` statement. The expression in the `if` condition checks if the value stored in the global variable `exam` is truthy. Since the value stored in `exam` is `undefined`- a falsy value - the code on line 8 will be bypassed and the code on line 10 will be executed. The `console.log` method is invoked and the string `"interview"` is passed as argument. `interview` is output to the console and the `console.log` method returns `undefined`.
+
+This code snippet demonstrates truthy and falsy values in JavaScript, or in other words values that evaluate to `true` or `false`.
+
+
+25. 
+
+```js
+//what will be logged to the console?
+
+let obj = {a: 1, b: 2}; // line 1 
+
+function shadows(a) {  // line 3 
+  console.log(obj[a]); // line 4
+  console.log(obj.a);   // line 5
+}
+shadows("b");  // line 7
+```
+On line 1 a global variable `obj` is declared and initialized to a reference, which points to the object literal: `{a: 1, b: 2}`.
+
+Lines 3 - 6 define a function `shadows` in the global scope, which specifies one argument `a`.
+
+On line 7, the function `shadows` is invoked and to it the string literal `'b'` is passed as argument. The execution moves to the `shadows` function.
+
+Object properties can be referenced using either dot notation or bracket notation. Dot notation requires that that key used must exist in the object that is referenced. Bracket notation allows for the values stored in variables to access values in an object, but only if the value stored in a variable is a key in the object referenced.
+
+On line 4 the bracket notation property accessor is used and the value stored in the local variable `a`: `'b'`, accesses the key of the same name: `'b'` in the object referenced by the global variable `obj`. This value is passed to the `console.log` method and `2` is output to the console. `console.log` returns undefined.
+
+On line 5 the dot notation property accessor is used and the key `a` is referenced in the object referenced by the global variable `obj`. This value is passed to the `console.log` method and `1` is output to the console. `console.log` returns undefined.
+
+The return value of the function `shadows` is `undefined`.
+
+This code snippet demonstrates the two ways to access object properties: Through dot notation or bracktet notation.
+
+26. 
+```js
+let peopleCities = {
+	boris: "Moscow",
+  thomas: "New York",
+  stephen: "New Mexico",
+}; 
+
+let city = peopleCities.boris; 
+console.log(city); 
+```
+On line 1 a global variable `peopleCities` is declared and initialized to a reference, which points to an object literal.
+
+On line 7 a global variable `city` is declared. The key `'boris'`is accessed using dot notation in the object referenced by the global variable `peopleCities`. This returns the value `'Moscow'`. The global variable `city` is initialized to `'Moscow'`.
+
+On line 7 the `console.log` method is invoked and to it the value stored in the global variable `city` is passed as argument. `'Moscow'` is output to the console and the `console.log` method returns `undefined`.
+
+This code snippet demonstrates how to access object properties with dot notation.
+
+
+27. 
+```js
+let peopleCities = {
+	name: "Thomas",
+  location: "New York",
+  occupation: "Web Developer",
+}; 
+
+console.log(peopleCities["name"]); 
+```
+
+On line 1 a global variable `peopleCities` is declared and initialized to a reference, which points to an object literal.
+
+On line 7, using bracket notation, the key `'name'` in the object referenced by the global variable `obj` is accessed using bracket notation and the value `'Thomas'` is returned. This value is passed to the `console.log` method as argument and `Thomas` is output to the console. `console.log` returns `undefined`.
+
+This demonstrates how to access object properties using the square bracket property accessor.
+
+28. 
+```js
+let peopleCities = {
+	boris: "Moscow",
+  thomas: "New York",
+  stephen: "New Mexico",
+}; 
+
+let friend = "stephen"; 
+peopleCities[friend]; 
+```
+
+On line 1 an global variable `peopleCities` is declared and initialized to a reference which points to an object literal.
+
+On line 7 a global variable `friend` is declared and initialized to the string literal `'stephen'`.
+
+Object properties can be accessed using bracket notation. This allows for the values stored in variables to access keys in objects, only if the value stored in the variable is a key that exists in the object being referenced.
+
+On line 8, using bracket notation, the value stored in the global variable `friend`: `'stephen'` accesses the key of the same name in the object referenced by the global variable `peopleCities`. This returns `'New Mexico'` but this value is never output or saved to a variable.
+
+This code snippet demonstrates how object properties can be accessed using bracket notation.
